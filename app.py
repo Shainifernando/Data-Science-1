@@ -41,3 +41,22 @@ plt.title('lift Heatmap of Association Rules')
 plt.xlabel('Consequents')
 plt.ylabel('Antecedents')
 plt.show()
+
+## For Segment 2
+s2 = (df[df["Segment"] == "Home Office"]
+     .groupby(["Order ID", "Sub-Category"])["Quantity"]
+     .sum().unstack().reset_index().fillna(0)
+     .set_index("Order ID"))
+s2
+
+def encode_units(x):
+    if x <=0:
+        return 0
+    if x >=1:
+        return 1
+
+s2_sets = s2.applymap(encode_units)
+
+frequent_itemsets_s2 = apriori(s2_sets, min_support=0.001, use_colnames = True)
+rules_s2 = association_rules(frequent_itemsets_s2, metric = "lift", min_threshold=1)
+print(rules_s2)
