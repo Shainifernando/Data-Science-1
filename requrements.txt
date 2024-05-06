@@ -1,5 +1,5 @@
 pandas
-nympy
-matplotlib
-seaborn
-mlxtend.frequent_patterns
+plotly
+stremlit>=1.18
+pydeck
+openpyxl
