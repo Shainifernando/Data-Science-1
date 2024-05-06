@@ -5,8 +5,29 @@ import seaborn as sns
 from mlxtend.frequent_patterns import apriori
 from mlxtend.frequent_patterns import association_rules
 
+# reading the data set.
 Global_superstore_data = pd.read_excel("Global Superstore Lite.xlsx") 
 
+#relationship analysis.
 corelation = Global_superstore_data.corr()
 sns.heatmap(corelation, xticklabels=corelation.columns, yticklabels=corelation.columns, annot=True)
 
+#MBA findings
+s1 = (df[df["Segment"] == "Consumer"]
+     .groupby(["Order ID", "Sub-Category"])["Quantity"]
+     .sum().unstack().reset_index().fillna(0)
+     .set_index("Order ID"))
+s1
+
+def encode_units(x):
+    if x <=0:
+        return 0
+    if x >=1:
+        return 1
+
+s1_sets = s1.applymap(encode_units)
+
+
+frequent_itemsets_s1 = apriori(s1_sets, min_support=0.001, use_colnames = True)
+rules_s1 = association_rules(frequent_itemsets_s1, metric = "lift", min_threshold=1)
+print(rules_s1)
