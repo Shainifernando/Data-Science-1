@@ -6,3 +6,7 @@ from mlxtend.frequent_patterns import apriori
 from mlxtend.frequent_patterns import association_rules
 
 Global_superstore_data = pd.read_excel("Global Superstore Lite.xlsx") 
+
+corelation = Global_superstore_data.corr()
+sns.heatmap(corelation, xticklabels=corelation.columns, yticklabels=corelation.columns, annot=True)
+
