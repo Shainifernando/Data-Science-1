@@ -60,3 +60,18 @@ s2_sets = s2.applymap(encode_units)
 frequent_itemsets_s2 = apriori(s2_sets, min_support=0.001, use_colnames = True)
 rules_s2 = association_rules(frequent_itemsets_s2, metric = "lift", min_threshold=1)
 print(rules_s2)
+
+# vis2(heatmap)
+
+heatmap_data = rules_s2.pivot(index='antecedents', columns='consequents', values='lift')
+plt.figure(figsize=(5, 4))
+sns.heatmap(heatmap_data, annot=True, cmap='coolwarm', fmt=".2f")
+plt.title('lift Heatmap of Association Rules')
+plt.xlabel('Consequents')
+plt.ylabel('Antecedents')
+plt.show()
+
+
+
+
+
