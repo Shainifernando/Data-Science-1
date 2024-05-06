@@ -71,7 +71,25 @@ plt.xlabel('Consequents')
 plt.ylabel('Antecedents')
 plt.show()
 
+## For Segment 3
 
+s3 = (df[df["Segment"] == "Corporate"]
+     .groupby(["Order ID", "Sub-Category"])["Quantity"]
+     .sum().unstack().reset_index().fillna(0)
+     .set_index("Order ID"))
+s3
+
+def encode_units(x):
+    if x <=0:
+        return 0
+    if x >=1:
+        return 1
+
+s3_sets = s3.applymap(encode_units)
+
+frequent_itemsets_s3 = apriori(s3_sets, min_support=0.001, use_colnames = True)
+rules_s3 = association_rules(frequent_itemsets_s3, metric = "lift", min_threshold=1)
+print(rules_s3)
 
 
 
