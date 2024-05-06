@@ -100,3 +100,15 @@ plt.xlabel('Consequents')
 plt.ylabel('Antecedents')
 plt.show()
 
+#unique results
+f=rules_s3[(rules_s3["lift"]>=1)&(rules_s3["confidence"]>=0.1)]
+print(f)
+
+# vis4(scatter)
+plt.figure(figsize=(5, 4))
+plt.scatter(range(len(f)), f['lift'], c=f['lift'], cmap='coolwarm')
+plt.colorbar(label='Lift')
+plt.title('Scatter Plot of Lift Values')
+plt.xlabel('Association Rule Index')
+plt.ylabel('Lift')
+plt.show()
