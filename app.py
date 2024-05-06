@@ -91,5 +91,12 @@ frequent_itemsets_s3 = apriori(s3_sets, min_support=0.001, use_colnames = True)
 rules_s3 = association_rules(frequent_itemsets_s3, metric = "lift", min_threshold=1)
 print(rules_s3)
 
-
+# vis3(heatmap)
+heatmap_data = rules_s3.pivot(index='antecedents', columns='consequents', values='lift')
+plt.figure(figsize=(10, 8))
+sns.heatmap(heatmap_data, annot=True, cmap='coolwarm', fmt=".2f")
+plt.title('lift Heatmap of Association Rules')
+plt.xlabel('Consequents')
+plt.ylabel('Antecedents')
+plt.show()
 
