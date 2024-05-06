@@ -13,6 +13,7 @@ corelation = Global_superstore_data.corr()
 sns.heatmap(corelation, xticklabels=corelation.columns, yticklabels=corelation.columns, annot=True)
 
 #MBA findings
+#segment1
 s1 = (df[df["Segment"] == "Consumer"]
      .groupby(["Order ID", "Sub-Category"])["Quantity"]
      .sum().unstack().reset_index().fillna(0)
@@ -31,3 +32,12 @@ s1_sets = s1.applymap(encode_units)
 frequent_itemsets_s1 = apriori(s1_sets, min_support=0.001, use_colnames = True)
 rules_s1 = association_rules(frequent_itemsets_s1, metric = "lift", min_threshold=1)
 print(rules_s1)
+
+#vis1(heatmap)
+heatmap_data = rules_s1.pivot(index='antecedents', columns='consequents', values='lift')
+plt.figure(figsize=(5, 4))
+sns.heatmap(heatmap_data, annot=True, cmap='coolwarm', fmt=".2f")
+plt.title('lift Heatmap of Association Rules')
+plt.xlabel('Consequents')
+plt.ylabel('Antecedents')
+plt.show()
