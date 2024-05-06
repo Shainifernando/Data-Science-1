@@ -1,5 +1,0 @@
-pandas
-plotly
-stremlit>=1.18
-pydeck
-openpyxl
