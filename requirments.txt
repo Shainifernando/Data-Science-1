@@ -1,5 +1,4 @@
 pandas
-matplotlib.pyplot
 seaborn
 mlxtend
 streamlit>=1.18
