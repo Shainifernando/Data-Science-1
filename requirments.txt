@@ -2,6 +2,4 @@ pandas
 numpy
 matplotlib.pyplot
 mlxtend.frequent_patterns
-streamlit>=1.18
-pydeck
-openpyx
+streamlit
