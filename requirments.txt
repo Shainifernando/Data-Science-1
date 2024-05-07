@@ -1,5 +1,7 @@
 pandas
 matplotlib
+seaborn
+mlxtend
 streamlit>=1.18
 pydeck
 openpyx
