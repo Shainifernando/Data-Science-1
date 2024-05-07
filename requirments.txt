@@ -1,3 +1,5 @@
 pandas
 mlxtend
 streamlit>=1.18
+pydeck
+openpyx
