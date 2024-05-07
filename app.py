@@ -1,16 +1,10 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 import seaborn as sns
 from mlxtend.frequent_patterns import apriori
 from mlxtend.frequent_patterns import association_rules
 
 # Reading the data set.
 Global_superstore_data = pd.read_excel("Global Superstore Lite.xlsx")
-
-# Relationship analysis.
-corelation = Global_superstore_data.corr()
-sns.heatmap(corelation, xticklabels=corelation.columns, yticklabels=corelation.columns, annot=True)
-plt.show()
 
 # MBA findings for each segment
 for segment in Global_superstore_data["Segment"].unique():
