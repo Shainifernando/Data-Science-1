@@ -1,6 +1,5 @@
 pandas
 numpy
-matplotlib.pyplot
 seaborn
 mlxtend.frequent_patterns
 streamlit>=1.18
