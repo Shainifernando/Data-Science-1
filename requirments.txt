@@ -2,7 +2,7 @@ pandas
 numpy
 matplotlib.pyplot
 seaborn
-mlxtend
+mlxtend.frequent_patterns
 streamlit>=1.18
 pydeck
 openpyx
