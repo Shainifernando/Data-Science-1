@@ -8,7 +8,7 @@ from mlxtend.frequent_patterns import apriori
 from mlxtend.frequent_patterns import association_rules
 
 #reading the dataset.
-Global_superstore_data = pd.read_excel("Global Superstore Lite.xlsx")
+Global_superstore_data = pd.read_excel("/workspaces/Data-Science-1/Global Superstore Lite.xlsx")
 
 # Select only numeric columns for correlation analysis
 numeric_columns = Global_superstore_data.select_dtypes(include=np.number)
