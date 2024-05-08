@@ -134,18 +134,18 @@ def encode(item_freq):
 basket_input = df2.applymap(encode)
 
 # Apply apriori algorithm for frequent itemsets
-frequent_itemsets = apriori(basket_input, min_support = 0.001, use_colnames=True)
+frequent_itemsets = apriori(basket_input, min_support=0.001, use_colnames=True)
 
 # Generate association rules with lift measure
-rules = association_rules(frequent_itemsets, metric = "lift", min_threshold=1)
-
-st.write("Association Rules:")
-st.write(rules.sort_values(["support", "confidence", "lift"],axis =0, ascending = False))
+rules = association_rules(frequent_itemsets, metric="lift", min_threshold=1)
 
 # Final result vizualization 
 # Pivot the DataFrame to prepare it for the heatmap
-st.write("Lift Heatmap of Association Rules:")
-st.write(heatmap_data = rules.pivot(index='antecedents', columns='consequents', values='lift'))
+heatmap_data = rules.pivot(index='antecedents', columns='consequents', values='lift')
+
+# Display association rules
+st.write("# Association Rules:")
+st.write(rules.sort_values(["support", "confidence", "lift"], axis=0, ascending=False))
 
 st.write("# Lift Heatmap of Association Rules")
 fig, ax = plt.subplots(figsize=(10, 8))
