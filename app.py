@@ -22,7 +22,8 @@ df1 = pd.read_excel("/workspaces/Data-Science-1/cleaned_dataset_global (1).xlsx"
 # Creating a new column as single_transaction using Customer ID and Order Date
 df1["single_transaction"] = df1["Customer ID"].astype(str)+'_'+df1['Order Date'].astype(str)
 
-
+# Creating a table with the new column and Sub-Category
+df2 = pd.crosstab(df1['single_transaction'],df1['Sub-Category'])
 
 ###### MBA using Segments to train the dataset
 ## For Segment 1
