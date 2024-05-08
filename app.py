@@ -117,6 +117,10 @@ plt.xlabel('Consequents')
 plt.ylabel('Antecedents')
 plt.show()
 
+# Generate association rules with lift measure
+rules = association_rules(frequent_itemsets, metric = "lift", min_threshold=1)
+
+rules.sort_values(["support", "confidence", "lift"],axis =0, ascending = False)
 
 # Final result vizualization 
 # Pivot the DataFrame to prepare it for the heatmap
