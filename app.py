@@ -44,7 +44,6 @@ s1_sets = s1.applymap(encode_units)
 
 frequent_itemsets_s1 = apriori(s1_sets, min_support=0.001, use_colnames = True)
 rules_s1 = association_rules(frequent_itemsets_s1, metric = "lift", min_threshold=1)
-print(rules_s1)
 
 #vis1(heatmap)
 heatmap_data = rules_s1.pivot(index='antecedents', columns='consequents', values='lift')
@@ -72,7 +71,6 @@ s2_sets = s2.applymap(encode_units)
 
 frequent_itemsets_s2 = apriori(s2_sets, min_support=0.001, use_colnames = True)
 rules_s2 = association_rules(frequent_itemsets_s2, metric = "lift", min_threshold=1)
-print(rules_s2)
 
 # vis2(heatmap)
 
@@ -102,7 +100,6 @@ s3_sets = s3.applymap(encode_units)
 
 frequent_itemsets_s3 = apriori(s3_sets, min_support=0.001, use_colnames = True)
 rules_s3 = association_rules(frequent_itemsets_s3, metric = "lift", min_threshold=1)
-print(rules_s3)
 
 # vis3(heatmap)
 heatmap_data = rules_s3.pivot(index='antecedents', columns='consequents', values='lift')
@@ -112,6 +109,20 @@ plt.title('lift Heatmap of Association Rules')
 plt.xlabel('Consequents')
 plt.ylabel('Antecedents')
 plt.show()
+
+## MBA for whole dataset
+
+# Encoding data 
+def encode(item_freq):
+    res = 0
+    if item_freq > 0:
+        res = 1
+    return res
+    
+basket_input = df2.applymap(encode)
+
+# Apply apriori algorithm for frequent itemsets
+frequent_itemsets = apriori(basket_input, min_support = 0.001, use_colnames=True)
 
 # Generate association rules with lift measure
 rules = association_rules(frequent_itemsets, metric = "lift", min_threshold=1)
