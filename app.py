@@ -8,9 +8,12 @@ from mlxtend.frequent_patterns import association_rules
 #reading the dataset.
 Global_superstore_data = pd.read_excel("Global Superstore Lite.xlsx")
 
+# Select only numeric columns for correlation analysis
+numeric_columns = Global_superstore_data.select_dtypes(include=np.number)
+
 # relationship analysis
-corelation = Global_superstore_data.corr()
-sns.heatmap(corelation, xticklabels=corelation.columns, yticklabels=corelation.columns, annot=True)
+correlation = numeric_columns.corr()
+sns.heatmap(correlation, xticklabels=correlation.columns, yticklabels=correlation.columns, annot=True)
 
 #Reading the cleaned dataset
 df1 = pd.read_excel("cleaned_dataset_global (1).xlsx")
