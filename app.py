@@ -12,8 +12,19 @@ Global_superstore_data = pd.read_excel("Global Superstore Lite.xlsx")
 corelation = Global_superstore_data.corr()
 sns.heatmap(corelation, xticklabels=corelation.columns, yticklabels=corelation.columns, annot=True)
 
-# Reading the cleaned dataset
-df = pd.read_excel('cleaned_dataset_global(1).xlsx')
+#Reading the cleaned dataset
+df1 = pd.read_excel("cleaned_dataset_global (1).xlsx")
+
+# Convert Order ID to string to avoid conversion to float
+for segment in df1["Segment"].unique():
+    segment_data = df1[df1["Segment"] == segment]
+
+ s = (segment_data.groupby(["Order ID", "Sub-Category"])["Quantity"]
+         .sum().unstack().reset_index().fillna(0)
+         .set_index("Order ID"))
+
+    s.index = s.index.astype(str)
+
 
 ###### MBA using Segments to train the dataset
 ## For Segment 1
