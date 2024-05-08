@@ -14,9 +14,11 @@ Global_superstore_data = pd.read_excel("/workspaces/Data-Science-1/Global Supers
 numeric_columns = Global_superstore_data.select_dtypes(include=np.number)
 
 # relationship analysis
-correlation = numeric_columns.corr()
 st.write("Correlation Heatmap:")
-st.write(sns.heatmap(correlation, xticklabels=correlation.columns, yticklabels=correlation.columns, annot=True))
+correlation = numeric_columns.corr()
+fig, ax = plt.subplots()
+heatmap = sns.heatmap(correlation, xticklabels=correlation.columns, yticklabels=correlation.columns, annot=True, ax=ax)
+st.pyplot(fig)
 
 #Reading the cleaned dataset
 df1 = pd.read_excel("/workspaces/Data-Science-1/cleaned_dataset_global (1).xlsx")
@@ -145,11 +147,13 @@ st.write(rules.sort_values(["support", "confidence", "lift"],axis =0, ascending 
 st.write("Lift Heatmap of Association Rules:")
 st.write(heatmap_data = rules2.pivot(index='antecedents', columns='consequents', values='lift'))
 
-# Create the heatmap
-plt.figure(figsize=(10, 8))
-sns.heatmap(heatmap_data, annot=True, cmap='coolwarm', fmt=".2f")
-plt.title('lift Heatmap of Association Rules')
+st.write("# Lift Heatmap of Association Rules")
+fig, ax = plt.subplots(figsize=(10, 8))
+sns.heatmap(heatmap_data, annot=True, cmap='coolwarm', fmt=".2f", ax=ax)
+plt.title('Lift Heatmap of Association Rules')
 plt.xlabel('Consequents')
 plt.ylabel('Antecedents')
-plt.show()
+
+# Display the plot
+st.pyplot(fig)
 
