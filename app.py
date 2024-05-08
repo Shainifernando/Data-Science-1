@@ -48,7 +48,7 @@ frequent_itemsets_s1 = apriori(s1_sets, min_support=0.001, use_colnames = True)
 rules_s1 = association_rules(frequent_itemsets_s1, metric = "lift", min_threshold=1)
 
 #vis1(heatmap)
-st.write("# Visualization 1: Heatmap of Association Rules for Segment 1")
+st.write("# Visualization 1: heatmap_data = rules_s1.pivot(index='antecedents', columns='consequents', values='lift')")
 fig, ax = plt.subplots(figsize=(5, 4))
 sns.heatmap(heatmap_data, annot=True, cmap='coolwarm', fmt=".2f", ax=ax)
 plt.title('Lift Heatmap of Association Rules')
