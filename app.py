@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 from mlxtend.frequent_patterns import apriori
 from mlxtend.frequent_patterns import association_rules
 
@@ -16,17 +17,11 @@ correlation = numeric_columns.corr()
 sns.heatmap(correlation, xticklabels=correlation.columns, yticklabels=correlation.columns, annot=True)
 
 #Reading the cleaned dataset
-df1 = pd.read_excel("cleaned_dataset_global (1).xlsx")
+df1 = pd.read_excel("/workspaces/Data-Science-1/cleaned_dataset_global (1).xlsx")
 
-# Convert Order ID to string to avoid conversion to float
-for segment in df1["Segment"].unique():
-    segment_data = df1[df1["Segment"] == segment]
+# Creating a new column as single_transaction using Customer ID and Order Date
+df1["single_transaction"] = df1["Customer ID"].astype(str)+'_'+df1['Order Date'].astype(str)
 
- s = (segment_data.groupby(["Order ID", "Sub-Category"])["Quantity"]
-         .sum().unstack().reset_index().fillna(0)
-         .set_index("Order ID"))
-
-    s.index = s.index.astype(str)
 
 
 ###### MBA using Segments to train the dataset
