@@ -145,7 +145,7 @@ st.write(rules.sort_values(["support", "confidence", "lift"],axis =0, ascending 
 # Final result vizualization 
 # Pivot the DataFrame to prepare it for the heatmap
 st.write("Lift Heatmap of Association Rules:")
-st.write(heatmap_data = rules2.pivot(index='antecedents', columns='consequents', values='lift'))
+st.write(heatmap_data = rules.pivot(index='antecedents', columns='consequents', values='lift'))
 
 st.write("# Lift Heatmap of Association Rules")
 fig, ax = plt.subplots(figsize=(10, 8))
