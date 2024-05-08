@@ -22,11 +22,14 @@ for segment in Global_superstore_data["Segment"].unique():
          .sum().unstack().reset_index().fillna(0)
          .set_index("Order ID"))
     
+    # Convert Order ID to string to avoid conversion to float error
+    s.index = s.index.astype(str)
+    
     s_sets = s.applymap(lambda x: 0 if x <= 0 else 1)
-
+    
     frequent_itemsets = apriori(s_sets, min_support=0.001, use_colnames=True)
     rules = association_rules(frequent_itemsets, metric="lift", min_threshold=1)
-
+    
     heatmap_data = rules.pivot(index='antecedents', columns='consequents', values='lift')
     plt.figure(figsize=(10, 8))
     sns.heatmap(heatmap_data, annot=True, cmap='coolwarm', fmt=".2f")
