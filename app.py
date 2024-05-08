@@ -1,9 +1,9 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 import seaborn as sns
 import openpyxl as pxl
+import matplotlib.pyplot as plt
 from mlxtend.frequent_patterns import apriori
 from mlxtend.frequent_patterns import association_rules
 
@@ -15,7 +15,8 @@ numeric_columns = Global_superstore_data.select_dtypes(include=np.number)
 
 # relationship analysis
 correlation = numeric_columns.corr()
-sns.heatmap(correlation, xticklabels=correlation.columns, yticklabels=correlation.columns, annot=True)
+st.write("Correlation Heatmap:")
+st.write(sns.heatmap(correlation, xticklabels=correlation.columns, yticklabels=correlation.columns, annot=True))
 
 #Reading the cleaned dataset
 df1 = pd.read_excel("/workspaces/Data-Science-1/cleaned_dataset_global (1).xlsx")
@@ -47,13 +48,15 @@ frequent_itemsets_s1 = apriori(s1_sets, min_support=0.001, use_colnames = True)
 rules_s1 = association_rules(frequent_itemsets_s1, metric = "lift", min_threshold=1)
 
 #vis1(heatmap)
-heatmap_data = rules_s1.pivot(index='antecedents', columns='consequents', values='lift')
-plt.figure(figsize=(5, 4))
-sns.heatmap(heatmap_data, annot=True, cmap='coolwarm', fmt=".2f")
-plt.title('lift Heatmap of Association Rules')
+st.write("# Visualization 1: Heatmap of Association Rules for Segment 1")
+fig, ax = plt.subplots(figsize=(5, 4))
+sns.heatmap(heatmap_data, annot=True, cmap='coolwarm', fmt=".2f", ax=ax)
+plt.title('Lift Heatmap of Association Rules')
 plt.xlabel('Consequents')
 plt.ylabel('Antecedents')
-plt.show()
+
+# disply the plot
+st.pyplot(fig)
 
 ## For Segment 2
 s2 = (df[df["Segment"] == "Home Office"]
@@ -75,13 +78,15 @@ rules_s2 = association_rules(frequent_itemsets_s2, metric = "lift", min_threshol
 
 # vis2(heatmap)
 
-heatmap_data = rules_s2.pivot(index='antecedents', columns='consequents', values='lift')
-plt.figure(figsize=(5, 4))
-sns.heatmap(heatmap_data, annot=True, cmap='coolwarm', fmt=".2f")
-plt.title('lift Heatmap of Association Rules')
+st.write("# Visualization 2: Heatmap of Association Rules for Segment 2")
+fig, ax = plt.subplots(figsize=(5, 4))
+sns.heatmap(heatmap_data, annot=True, cmap='coolwarm', fmt=".2f", ax=ax)
+plt.title('Lift Heatmap of Association Rules')
 plt.xlabel('Consequents')
 plt.ylabel('Antecedents')
-plt.show()
+
+#display the plot
+st.pyplot(fig)
 
 ## For Segment 3
 
@@ -103,13 +108,15 @@ frequent_itemsets_s3 = apriori(s3_sets, min_support=0.001, use_colnames = True)
 rules_s3 = association_rules(frequent_itemsets_s3, metric = "lift", min_threshold=1)
 
 # vis3(heatmap)
-heatmap_data = rules_s3.pivot(index='antecedents', columns='consequents', values='lift')
-plt.figure(figsize=(10, 8))
-sns.heatmap(heatmap_data, annot=True, cmap='coolwarm', fmt=".2f")
-plt.title('lift Heatmap of Association Rules')
+st.write("# Visualization 3: Heatmap of Association Rules for Segment 3")
+fig, ax = plt.subplots(figsize=(10, 8))
+sns.heatmap(heatmap_data, annot=True, cmap='coolwarm', fmt=".2f", ax=ax)
+plt.title('Lift Heatmap of Association Rules')
 plt.xlabel('Consequents')
 plt.ylabel('Antecedents')
-plt.show()
+
+# Display the plot
+st.pyplot(fig)
 
 ## MBA for whole dataset
 
@@ -128,11 +135,13 @@ frequent_itemsets = apriori(basket_input, min_support = 0.001, use_colnames=True
 # Generate association rules with lift measure
 rules = association_rules(frequent_itemsets, metric = "lift", min_threshold=1)
 
-rules.sort_values(["support", "confidence", "lift"],axis =0, ascending = False)
+st.write("Association Rules:")
+st.write(rules.sort_values(["support", "confidence", "lift"],axis =0, ascending = False))
 
 # Final result vizualization 
 # Pivot the DataFrame to prepare it for the heatmap
-heatmap_data = rules2.pivot(index='antecedents', columns='consequents', values='lift')
+st.write("Lift Heatmap of Association Rules:")
+st.write(heatmap_data = rules2.pivot(index='antecedents', columns='consequents', values='lift'))
 
 # Create the heatmap
 plt.figure(figsize=(10, 8))
