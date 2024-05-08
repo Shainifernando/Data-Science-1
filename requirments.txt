@@ -1,6 +1,6 @@
 pandas
 numpy
-matplotlib
+matplotlib.pyplot
 mlxtend.frequent_patterns
 streamlit
 openpyxl
